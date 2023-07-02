@@ -8,11 +8,11 @@
 		<version>2.5.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>dataa</groupId>
-	<artifactId>Eleger</artifactId>
+	<groupId>organize</groupId>
+	<artifactId>Usuarios</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Eleger</name>
-	<description>Demo project for Spring Boot</description>
+	<name>Usuarios</name>
+	<description>Controle de Usuários</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

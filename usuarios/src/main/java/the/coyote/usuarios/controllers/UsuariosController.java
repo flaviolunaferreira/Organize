@@ -1,5 +1,7 @@
 package the.coyote.usuarios.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
+import the.coyote.usuarios.dto.usuarios.UsuariosDtoRequest;
+import the.coyote.usuarios.dto.usuarios.UsuariosDtoResponse;
+import the.coyote.usuarios.service.UsuariosService;
 
 /**
  * TheCoyote
@@ -21,27 +26,25 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/api/v1/usuarios")
 public class UsuariosController {
 
-    private final UsuarioService usuarioService;
+    private final UsuariosService usuariosService;
 
-    @Autowired
-    public UsuarioControle(UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
+    public UsuariosController(UsuariosService usuariosService) {
+        this.usuariosService = usuariosService;
     }
-
 
     @ApiOperation(value = "Cadastra um novo Usuário", notes = "Cadastra um novo usuário no banco de dados.")
     @PostMapping("/usuario")
-    public ResponseEntity<UsuarioDtoResposta> salvarNovoUsuario(
-            @RequestBody @Validated UsuarioDtoRequisicao usuarioDtoRequisicao) {
-        UsuarioDtoResposta resultado = usuarioService.salvarNovoUsuario(usuarioDtoRequisicao);
+    public ResponseEntity<UsuariosDtoResponse> salvarNovoUsuario(
+            @RequestBody @Validated UsuariosDtoRequest usuariosDtoRequest) {
+        UsuariosDtoResponse resultado = usuariosService.salvarNovoUsuario(usuariosDtoRequest);
         return ResponseEntity.ok().body(resultado);
     }
 
     @ApiOperation(value = "Lista todos os usuário", notes = "Lista todos os usuários cadastrados.")
     @GetMapping("/pagina/{pagina}/itens/{itens}")
-    public ResponseEntity<List<UsuarioDtoResposta>> listarTodosUsuarios(@PathVariable int pagina,
+    public ResponseEntity<List<UsuariosDtoResponse>> listarTodosUsuarios(@PathVariable int pagina,
                                                                         @PathVariable int itens) {
-        List<UsuarioDtoResposta> resultado = usuarioService.listarTodosUsuarios(pagina, itens);
+        List<UsuariosDtoResponse> resultado = usuariosService.listarTodosUsuarios(pagina, itens);
         return ResponseEntity.ok().body(resultado);
     }
 
@@ -57,7 +60,7 @@ public class UsuariosController {
     public ResponseEntity<Boolean> validarUsuario(@RequestParam String usuario,
                                                   @RequestParam String senha) {
         // atribuindo responsabilidade para outra classe
-        Boolean resultado = usuarioService.validarUsuario(usuario, senha);
+        Boolean resultado = usuariosService.validarUsuario(usuario, senha);
 
         // montando a responsta
         HttpStatus status = (resultado) ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;

@@ -9,17 +9,19 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import the.coyote.usuarios.entities.UsuarioEntity;
+
 public class UserConfig implements UserDetails {
     
     private String nome;
     private String senha;
     private Collection<? extends GrantedAuthority> autorizacoes = new ArrayList<>();
 
-    public UserConfig(UsuarioEntidade usuario) {
+    public UserConfig(UsuarioEntity usuario) {
 
         System.out.println(usuario);
 
-        List<SimpleGrantedAuthority> permissoes = usuario.getPermissoesEntidade().stream().map(item -> {
+        List<SimpleGrantedAuthority> permissoes = usuario.getPermissoesEntity().stream().map(item -> {
             return new SimpleGrantedAuthority("ROLE_".concat(item.getPermissoesEnum().getDescricao()));
             }).collect(Collectors.toList());
 
@@ -31,7 +33,7 @@ public class UserConfig implements UserDetails {
         this.autorizacoes = permissoes;
     }
 
-    public static UserConfig criar(UsuarioEntidade usuarioEntidade) {
+    public static UserConfig criar(UsuarioEntity usuarioEntidade) {
         return new UserConfig(usuarioEntidade);
     }
 

@@ -1,18 +1,39 @@
 package the.coyote.usuarios.service.impl;
 
-@Service
-public class UsuarioServiceImpl {
 
-        private final UsuarioRepositorio usuarioRepositorio;
-    private final PermissaoService permissaoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import the.coyote.usuarios.dto.usuarios.UsuariosDtoRequest;
+import the.coyote.usuarios.dto.usuarios.UsuariosDtoResponse;
+import the.coyote.usuarios.entities.UsuarioEntity;
+import the.coyote.usuarios.exceptions.DuplicateValue;
+import the.coyote.usuarios.repository.UsuarioRepository;
+import the.coyote.usuarios.service.PermissoesService;
+import the.coyote.usuarios.service.UsuariosService;
+import the.coyote.usuarios.uteis.Cpf;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+public class UsuarioServiceImpl implements UsuariosService {
+
+    private final UsuarioRepository usuarioRepositorio;
+    private final PermissoesService permissaoService;
 
     private BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
     private final Cpf cpf;
 
-    @Autowired
-    public UsuarioServiceImpl(UsuarioRepositorio usuarioRepositorio, PermissaoService permissaoService, Cpf cpf) {
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepositorio, PermissoesService permissaoService, Cpf cpf) {
         this.usuarioRepositorio = usuarioRepositorio;
         this.permissaoService = permissaoService;
         this.cpf = cpf;
@@ -24,11 +45,11 @@ public class UsuarioServiceImpl {
      * @return
      */
     @Override
-    public UsuarioDtoResposta salvarNovoUsuario(UsuarioDtoRequisicao usuarioDtoRequisicao) throws ValorDuplicado {
+    public UsuariosDtoResponse salvarNovoUsuario(UsuariosDtoRequest usuarioDtoRequisicao) throws DuplicateValue {
         // encriptando a senha do usuário.
         usuarioDtoRequisicao.setSenha(encoder().encode(usuarioDtoRequisicao.getSenha()));
 
-        UsuarioEntidade procurarPorCpf = usuarioRepositorio.findUsuarioByCpf(
+        UsuarioEntity procurarPorCpf = usuarioRepositorio.findUsuarioByCpf(
                 cpf.formataCpf(usuarioDtoRequisicao.getCpf()));
         if (procurarPorCpf == null)
             return new UsuarioDtoResposta(usuarioRepositorio.save(usuarioDtoRequisicao.novoUsuario()));
@@ -78,5 +99,5 @@ public class UsuarioServiceImpl {
         return lista.stream().map(UsuarioDtoResposta::new).collect(Collectors.toList());
 
     }
-    
+
 }
