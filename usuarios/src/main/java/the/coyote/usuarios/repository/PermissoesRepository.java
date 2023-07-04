@@ -9,6 +9,7 @@ import the.coyote.usuarios.uteis.PermissoesEnum;
 public interface PermissoesRepository extends PagingAndSortingRepository<PermissoesEntity, Long> {
 
     PermissoesEntity findByPermissoesEnum(PermissoesEnum permissoesEnum);
-    List<PermissoesEntity> findByUsuarioEntidade(Long usuario);
+    
+    List<PermissoesEntity> findByUsuarioEntity(Long usuario);
 
 }

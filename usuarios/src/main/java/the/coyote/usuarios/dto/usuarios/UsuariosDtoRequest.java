@@ -5,10 +5,18 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.br.CPF;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.Setter;
 import the.coyote.usuarios.entities.UsuarioEntity;
 import the.coyote.usuarios.uteis.Cpf;
 
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UsuariosDtoRequest {
 
     @NonNull

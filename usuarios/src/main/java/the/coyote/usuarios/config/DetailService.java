@@ -1,5 +1,6 @@
 package the.coyote.usuarios.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -15,12 +16,14 @@ public class DetailService implements UserDetailsService {
     private final UsuarioRepository usuarioRepository;
     private final PermissoesRepository permissoesRepository;
 
-    public DetailService(UsuarioRepository usuarioRepository, PermissoesRepository permissoesRepository) {
-        this.usuarioRepository = usuarioRepository;
-        this.permissoesRepository = permissoesRepository;
-    }
 
-    @Override
+    @Autowired
+    public DetailService(UsuarioRepository usuarioRepository, PermissoesRepository permissoesRepository) {
+		this.usuarioRepository = usuarioRepository;
+		this.permissoesRepository = permissoesRepository;
+	}
+
+	@Override
     public UserDetails loadUserByUsername(String nomeDoUsuario) throws NotFound {
         UsuarioEntity seExiste = usuarioRepository.findByNome(nomeDoUsuario)
                 .orElseThrow(() -> new NotFound("Usuário não encontrado!"));

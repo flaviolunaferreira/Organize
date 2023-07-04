@@ -2,9 +2,9 @@ package the.coyote.usuarios.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +24,7 @@ import the.coyote.usuarios.service.UsuariosService;
  */
 @RestController
 @RequestMapping("/api/v1/usuarios")
+@PreAuthorize("hasRole('ADMINISTRADOR')")
 public class UsuariosController {
 
     private final UsuariosService usuariosService;
@@ -48,21 +49,14 @@ public class UsuariosController {
         return ResponseEntity.ok().body(resultado);
     }
 
-    /**
-     * Atenção... na vida real as informações do usuário devem vir atravéz do body encriptografado...
-     * evitando interceptação de dados mas enfim....
-     * @param usuario
-     * @param senha
-     * @return boolean
-     */
+
     @ApiOperation(value = "Valida informações de login", notes = "Valida informações de login de um usuário já cadastrado")
     @GetMapping("/login")
     public ResponseEntity<Boolean> validarUsuario(@RequestParam String usuario,
                                                   @RequestParam String senha) {
-        // atribuindo responsabilidade para outra classe
+
         Boolean resultado = usuariosService.validarUsuario(usuario, senha);
 
-        // montando a responsta
         HttpStatus status = (resultado) ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
 
         return  ResponseEntity.status(status).body(resultado);

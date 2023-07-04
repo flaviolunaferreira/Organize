@@ -3,9 +3,17 @@ package the.coyote.usuarios.dto.usuarios;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import the.coyote.usuarios.entities.PermissoesEntity;
 import the.coyote.usuarios.entities.UsuarioEntity;
 
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UsuariosDtoResponse {
 
     private Long id;
@@ -24,7 +32,7 @@ public class UsuariosDtoResponse {
         this.setNome(usuarioEntidade.getNome());
         this.setEmail(usuarioEntidade.getEmail());
         this.setCpf(usuarioEntidade.getCpf());
-        this.setPermissoes(usuarioEntidade.getPermissoesEntidade());
+        this.setPermissoes(usuarioEntidade.getPermissoesEntity());
         this.setCriadoPor(usuarioEntidade.getCriadoPor());
         this.setCriadoData(usuarioEntidade.getCriadoData());
         this.setModificadoPor(usuarioEntidade.getModificadoPor());

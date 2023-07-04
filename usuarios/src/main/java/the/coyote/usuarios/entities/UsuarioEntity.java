@@ -37,7 +37,7 @@ public class UsuarioEntity {
     private String senha;
     private String cpf;
 
-    @OneToMany(mappedBy = "usuarioEntidade", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "usuarioEntity", fetch = FetchType.EAGER)
     private List<PermissoesEntity> permissoesEntity = new ArrayList<>();
 
     private String criadoPor = System.getProperty("user.name");

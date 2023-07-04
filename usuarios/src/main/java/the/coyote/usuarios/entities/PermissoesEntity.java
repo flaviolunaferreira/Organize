@@ -30,6 +30,7 @@ public class PermissoesEntity {
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     private UsuarioEntity usuarioEntity;
+    
     private PermissoesEnum permissoesEnum;
 
     public PermissoesEntity(UsuarioEntity usuarioEntity, PermissoesEnum permissoesEnum)
