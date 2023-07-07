@@ -1,6 +1,5 @@
 package the.coyote.usuarios.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -16,8 +15,6 @@ public class DetailService implements UserDetailsService {
     private final UsuarioRepository usuarioRepository;
     private final PermissoesRepository permissoesRepository;
 
-
-    @Autowired
     public DetailService(UsuarioRepository usuarioRepository, PermissoesRepository permissoesRepository) {
 		this.usuarioRepository = usuarioRepository;
 		this.permissoesRepository = permissoesRepository;

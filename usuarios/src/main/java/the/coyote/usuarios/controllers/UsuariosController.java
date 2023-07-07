@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.annotations.ApiOperation;
 import the.coyote.usuarios.dto.usuarios.UsuariosDtoRequest;
 import the.coyote.usuarios.dto.usuarios.UsuariosDtoResponse;
 import the.coyote.usuarios.service.UsuariosService;
@@ -33,7 +32,6 @@ public class UsuariosController {
         this.usuariosService = usuariosService;
     }
 
-    @ApiOperation(value = "Cadastra um novo Usuário", notes = "Cadastra um novo usuário no banco de dados.")
     @PostMapping("/usuario")
     public ResponseEntity<UsuariosDtoResponse> salvarNovoUsuario(
             @RequestBody @Validated UsuariosDtoRequest usuariosDtoRequest) {
@@ -41,7 +39,6 @@ public class UsuariosController {
         return ResponseEntity.ok().body(resultado);
     }
 
-    @ApiOperation(value = "Lista todos os usuário", notes = "Lista todos os usuários cadastrados.")
     @GetMapping("/pagina/{pagina}/itens/{itens}")
     public ResponseEntity<List<UsuariosDtoResponse>> listarTodosUsuarios(@PathVariable int pagina,
                                                                         @PathVariable int itens) {
@@ -49,8 +46,6 @@ public class UsuariosController {
         return ResponseEntity.ok().body(resultado);
     }
 
-
-    @ApiOperation(value = "Valida informações de login", notes = "Valida informações de login de um usuário já cadastrado")
     @GetMapping("/login")
     public ResponseEntity<Boolean> validarUsuario(@RequestParam String usuario,
                                                   @RequestParam String senha) {

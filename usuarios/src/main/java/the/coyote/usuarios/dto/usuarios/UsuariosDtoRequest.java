@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.br.CPF;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

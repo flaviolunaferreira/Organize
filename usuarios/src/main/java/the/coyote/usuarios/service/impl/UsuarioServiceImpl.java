@@ -23,21 +23,19 @@ import the.coyote.usuarios.uteis.Cpf;
 @Service
 public class UsuarioServiceImpl implements UsuariosService {
 
-    private final UsuarioRepository usuarioRepositorio;
+    private final UsuarioRepository usuarioRepository;
     private final PermissoesService permissaoService;
-
-    private BCryptPasswordEncoder encoder() {
-        return new BCryptPasswordEncoder();
-    }
-    
     private final Cpf cpf;
-
-    public UsuarioServiceImpl(UsuarioRepository usuarioRepositorio, PermissoesService permissaoService, Cpf cpf) {
-        this.usuarioRepositorio = usuarioRepositorio;
+    
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, PermissoesService permissaoService, Cpf cpf) {
+        this.usuarioRepository = usuarioRepository;
         this.permissaoService = permissaoService;
         this.cpf = cpf;
     }
 
+    private BCryptPasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     /**
      * @param usuarioDtoRequisicao
@@ -48,10 +46,10 @@ public class UsuarioServiceImpl implements UsuariosService {
         // encriptando a senha do usuário.
         usuarioDtoRequisicao.setSenha(encoder().encode(usuarioDtoRequisicao.getSenha()));
 
-        UsuarioEntity procurarPorCpf = usuarioRepositorio.findUsuarioByCpf(
+        UsuarioEntity procurarPorCpf = usuarioRepository.findUsuarioByCpf(
                 cpf.formataCpf(usuarioDtoRequisicao.getCpf()));
         if (procurarPorCpf == null)
-            return new UsuariosDtoResponse(usuarioRepositorio.save(usuarioDtoRequisicao.novoUsuario()));
+            return new UsuariosDtoResponse(usuarioRepository.save(usuarioDtoRequisicao.novoUsuario()));
         throw new DuplicateValue("Sinto Muito... Cpf Já cadastrado!");
     }
 
@@ -63,7 +61,7 @@ public class UsuarioServiceImpl implements UsuariosService {
     @Override
     public Boolean validarUsuario(String usuario, String senha) {
         // procurando o usuario pelo nome
-        Optional<UsuarioEntity> opUsuario = usuarioRepositorio.findByNome(usuario);
+        Optional<UsuarioEntity> opUsuario = usuarioRepository.findByNome(usuario);
         // se não existir já retorna falso
         if (opUsuario.isEmpty()) return false;
 
@@ -78,7 +76,7 @@ public class UsuarioServiceImpl implements UsuariosService {
 
     @Override
     public UsuarioEntity buscarUsuarioPorId(Long usuario) throws NotFound {
-        return usuarioRepositorio.findById(usuario)
+        return usuarioRepository.findById(usuario)
                 .orElseThrow(() ->  new NotFound("Desculpe, mas não encontrei o usuário com o id: " + usuario));
     }
 
@@ -93,7 +91,7 @@ public class UsuarioServiceImpl implements UsuariosService {
 
         PageRequest page = PageRequest.of(pagina, itens);
 
-        Page<UsuarioEntity> lista = usuarioRepositorio.findAll(page);
+        Page<UsuarioEntity> lista = usuarioRepository.findAll(page);
 
         return lista.stream().map(UsuariosDtoResponse::new).collect(Collectors.toList());
 

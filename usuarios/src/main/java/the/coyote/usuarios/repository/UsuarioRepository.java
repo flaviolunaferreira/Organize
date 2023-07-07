@@ -10,5 +10,6 @@ public interface UsuarioRepository extends PagingAndSortingRepository<UsuarioEnt
     
     UsuarioEntity findUsuarioByCpf(String cpf);
     Optional<UsuarioEntity> findByNome(String usuario);
+    Optional<UsuarioEntity> findById(Long usuario);
     
 }
