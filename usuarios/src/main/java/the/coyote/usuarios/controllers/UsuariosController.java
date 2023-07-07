@@ -23,7 +23,7 @@ import the.coyote.usuarios.service.UsuariosService;
  */
 @RestController
 @RequestMapping("/api/v1/usuarios")
-@PreAuthorize("hasRole('ADMINISTRADOR')")
+// @PreAuthorize("hasRole('ADMINISTRADOR')")
 public class UsuariosController {
 
     private final UsuariosService usuariosService;

@@ -1,10 +1,10 @@
-package the.coyote.comuns;
+package the.coyote.operacoes;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ComunsApplicationTests {
+class OperacoesApplicationTests {
 
 	@Test
 	void contextLoads() {

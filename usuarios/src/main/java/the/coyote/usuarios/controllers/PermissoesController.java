@@ -17,7 +17,7 @@ import the.coyote.usuarios.service.PermissoesService;
 
 @RestController
 @RequestMapping("api/v1/permissao")
-@PreAuthorize("hasRole('ADMINISTRADOR')")
+//@PreAuthorize("hasRole('ADMINISTRADOR')")
 public class PermissoesController {
 
     private final PermissoesService permissoesService;

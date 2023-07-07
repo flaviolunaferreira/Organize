@@ -23,8 +23,7 @@ public class BancosServiceImpl implements BancosService{
 
     @Override
     public BancosDtoResponse salvarNovoBanco(BancosDtoRequest bancosDtoRequest) {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'salvarNovoBanco'");
+        return new BancosDtoResponse(bancosRepository.save(bancosDtoRequest.newBanco()));        
     }
     
 
