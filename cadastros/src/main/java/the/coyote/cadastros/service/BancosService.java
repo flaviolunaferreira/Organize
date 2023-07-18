@@ -14,7 +14,7 @@ public interface BancosService {
 
 	List<BancosDtoResponse> listarTodosOsBancos();
 
-	BancosDtoResponse buscarBancoPorNome(String nome);
+	List<BancosDtoResponse> buscarBancoPorNome(String nome);
 
 	BancosDtoResponse buscarBancoPorCodigo(Integer codigo);
 

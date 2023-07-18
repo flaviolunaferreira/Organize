@@ -3,14 +3,20 @@ package the.coyote.cadastros.controllers;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import the.coyote.cadastros.dto.bancos.BancosDtoRequest;
 import the.coyote.cadastros.dto.bancos.BancosDtoResponse;
 import the.coyote.cadastros.service.BancosService;
 
 @RestController
-@RequestMapping("api/v1/bancoscontroller")
+@RequestMapping("api/v1/bancos")
 public class BancosController {
 
     private final BancosService bancosService;
@@ -20,7 +26,7 @@ public class BancosController {
 	}
 
 	@PostMapping("/")
-    public ResponseEntity<BancosDtoResponse> salvaNovoBanco(@RequestBody @Validated BancosDtoRequest bancosDtoRequest) {
+    public ResponseEntity<BancosDtoResponse> salvaNovoBanco(@RequestBody BancosDtoRequest bancosDtoRequest) {
         return ResponseEntity.ok().body(bancosService.salvarNovoBanco(bancosDtoRequest));
     }
 
@@ -30,7 +36,7 @@ public class BancosController {
     }
     
     @GetMapping("/nome/{nome}")
-    public ResponseEntity<BancosDtoResponse> buscarBancoPorNome(@PathVariable String nome) {
+    public ResponseEntity<List<BancosDtoResponse>> buscarBancoPorNome(@PathVariable String nome) {
         return ResponseEntity.ok().body(bancosService.buscarBancoPorNome(nome));
     }
 
