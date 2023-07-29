@@ -14,4 +14,10 @@ public interface ContaCorrenteService {
 
     List<ContaCorrenteDtoResponse> ListarTodasContasCorrentes();
 
+    ContaCorrenteDtoResponse procurarPorCodigo(Long codigo);
+
+    ContaCorrenteDtoResponse alterarContaCorrente(Long codigo, ContaCorrenteDtoRequest contaCorrente);
+
+    ContaCorrenteDtoResponse apagarContaCorrente(Long codigo);
+
 }

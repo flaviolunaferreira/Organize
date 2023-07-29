@@ -12,15 +12,28 @@ import the.coyote.cadastros.service.ContaCorrenteService;
 public class ContaCorrenteServicoImpl implements ContaCorrenteService {
 
     @Override
-    public ContaCorrenteDtoResponse salvarContaCorrente(ContaCorrenteDtoRequest contaCorreteDtoRequest) {
-        // TODO Auto-generated method stub
+    public ContaCorrenteDtoResponse salvarContaCorrente(ContaCorrenteDtoRequest contaCorreteDtoRequest) {        // 
         throw new UnsupportedOperationException("Unimplemented method 'salvarContaCorrente'");
     }
 
     @Override
     public List<ContaCorrenteDtoResponse> ListarTodasContasCorrentes() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'ListarTodasContasCorrentes'");
+    }
+
+    @Override
+    public ContaCorrenteDtoResponse procurarPorCodigo(Long codigo) {
+        throw new UnsupportedOperationException("Unimplemented method 'procurarPorCodigo'");
+    }
+
+    @Override
+    public ContaCorrenteDtoResponse alterarContaCorrente(Long codigo, ContaCorrenteDtoRequest contaCorrente) {
+        throw new UnsupportedOperationException("Unimplemented method 'alterarContaCorrente'");
+    }
+
+    @Override
+    public ContaCorrenteDtoResponse apagarContaCorrente(Long codigo) {
+        throw new UnsupportedOperationException("Unimplemented method 'apagarContaCorrente'");
     }
     
 }
