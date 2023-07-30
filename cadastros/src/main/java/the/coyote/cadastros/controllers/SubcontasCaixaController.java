@@ -1,6 +1,12 @@
 package the.coyote.cadastros.controllers;
 
-import lombok.RequiredArgsConstructor;
+import the.coyote.cadastros.dto.subContasCaixa.SubContasCaixaDtoRequest;
+import the.coyote.cadastros.dto.subContasCaixa.SubContasCaixadtoResponse;
+import the.coyote.cadastros.service.SubContasCaixaService;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,53 +15,32 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/subcontascaixa")
 public class SubcontasCaixaController {
 
+    @Autowired
+    private SubContasCaixaService subContasCaixaService;
+
     @GetMapping()
-    public ResponseEntity<?> findAll() {
-        try {
-            //TODO Implement Your Logic To Get Data From Service Layer Or Directly From Repository Layer
-            return new ResponseEntity<>("GetAll Results", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<List<SubContasCaixadtoResponse>> listarTodas() {
+        return ResponseEntity.ok().body(subContasCaixaService.listarTodos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> find(@PathVariable Integer id) {
-        try {
-            //TODO Implement Your Logic To Get Data From Service Layer Or Directly From Repository Layer
-            return new ResponseEntity<>("GetOne Result", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<SubContasCaixadtoResponse> procurarPeloId(@PathVariable Integer id) {
+        return ResponseEntity.ok().body(subContasCaixaService.procurarSubContaCaixaPeloId(id));
     }
 
     @PostMapping()
-    public ResponseEntity<?> create(@RequestBody Dto dto) {
-        try {
-            //TODO Implement Your Logic To Save Data And Return Result Through ResponseEntity
-            return new ResponseEntity<>("Create Result", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<SubContasCaixadtoResponse> create(@RequestBody SubContasCaixaDtoRequest subContasCaixaDtoResquest) {
+        return ResponseEntity.ok().body(subContasCaixaService.salvarSubContaCaixa(subContasCaixaDtoResquest));
     }
 
-    @PutMapping()
-    public ResponseEntity<?> update(@RequestBody Dto dto) {
-        try {
-            //TODO Implement Your Logic To Update Data And Return Result Through ResponseEntity
-            return new ResponseEntity<>("Update Result", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@RequestBody SubContasCaixaDtoRequest subContasCaixaDtoResquest,@PathVariable Integer id) {
+        return ResponseEntity.ok().body(subContasCaixaService.atualizarSubContaCaixa(subContasCaixaDtoResquest, id));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id) {
-        try {
-            //TODO Implement Your Logic To Destroy Data And Return Result Through ResponseEntity
-            return new ResponseEntity<>("Destroy Result", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        subContasCaixaService.apagarSubContaCaixa(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

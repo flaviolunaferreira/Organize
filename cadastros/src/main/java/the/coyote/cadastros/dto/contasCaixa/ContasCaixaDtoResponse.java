@@ -1,4 +1,4 @@
-package the.coyote.cadastros.controllers;
+package the.coyote.cadastros.dto.contasCaixa;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

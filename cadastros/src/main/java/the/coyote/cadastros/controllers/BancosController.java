@@ -3,6 +3,7 @@ package the.coyote.cadastros.controllers;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,11 +46,12 @@ public class BancosController {
         return ResponseEntity.ok().body(bancosService.buscarBancoPorCodigo(codigo));
     }
 
-    @PutMapping("/codigo/{codigo}")
+    @PutMapping("/{codigo}")
     public ResponseEntity<BancosDtoResponse> alterarBanco(@PathVariable Integer codigo, BancosDtoRequest bancosDtoRequest) {
         return ResponseEntity.ok().body(bancosService.alterarBanco(codigo, bancosDtoRequest));
     }
 
+    @DeleteMapping("/{codigo}")
     public ResponseEntity<BancosDtoResponse> apagarBanco(@PathVariable Integer codigo) {
         bancosService.apagarBanco(codigo);
         return ResponseEntity.ok().build();

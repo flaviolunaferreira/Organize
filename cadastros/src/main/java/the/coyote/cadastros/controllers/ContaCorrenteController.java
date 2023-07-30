@@ -41,12 +41,12 @@ public class ContaCorrenteController {
         return ResponseEntity.ok().body(contaCorrenteService.procurarPorCodigo(codigo));
     }
 
-    @PutMapping("/codigo/{codigo}")
+    @PutMapping("/{codigo}")
     public ResponseEntity<ContaCorrenteDtoResponse> alterarContaCorrente(@PathVariable Long codigo, @RequestBody ContaCorrenteDtoRequest contaCorrente) {
         return ResponseEntity.ok().body(contaCorrenteService.alterarContaCorrente(codigo, contaCorrente));
     }
 
-    @DeleteMapping("/codigo/{codigo}")
+    @DeleteMapping("/{codigo}")
     public ResponseEntity<ContaCorrenteDtoResponse> apagarContaCorrente(@PathVariable Long codigo) {
         return ResponseEntity.ok().body(contaCorrenteService.apagarContaCorrente(codigo));
     }
