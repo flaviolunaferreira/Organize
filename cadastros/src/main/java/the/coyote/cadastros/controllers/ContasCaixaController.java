@@ -1,6 +1,5 @@
 package the.coyote.cadastros.controllers;
 
-import lombok.RequiredArgsConstructor;
 import the.coyote.cadastros.dto.contasCaixa.ContasCaixaDtoRequest;
 import the.coyote.cadastros.dto.contasCaixa.ContasCaixaDtoResponse;
 import the.coyote.cadastros.service.ContasCaixaService;
